@@ -32,56 +32,34 @@ h1 { /* Premium Titel | Zeile 13: elegante Überschrift */
     box-shadow: 0 25px 45px rgba(0,0,0,0.1); /* Float Shadow | Zeile 31: schwebender Schatten */
 }
 
-/* 3D Premium Münze | Zeile 34: Next Level Münz-Design */
-/* Verwendet von: index.html Zeile 15 #muenze-3d | Zeile 35 */
-#muenze-3d { /* 3D Container | Zeile 36: 3D Münz-Container */
-    width: 120px; /* Perfect Size | Zeile 37: ideale Münzgröße */
-    height: 120px; /* Equal Height | Zeile 38: quadratische Perfektion */
-    margin: 40px auto; /* Centered Beauty | Zeile 39: zentrierte Schönheit */
-    position: relative; /* 3D Position | Zeile 40: für 3D Transformation */
-    cursor: pointer; /* Interactive | Zeile 41: klickbar signalisieren */
-    transform-style: preserve-3d; /* 3D Magic | Zeile 42: 3D Raum aktivieren */
-    transition: transform 0.4s cubic-bezier(0.4, 0.0, 0.2, 1); /* Smooth Flow | Zeile 43: flüssige Übergänge */
+/* Einfache funktionierende Münze | Zeile 34: wie echte Euro-Münze */
+/* Verwendet von: index.html Zeile 15 #muenze | Zeile 35 */
+#muenze { /* Münz-Element | Zeile 36: einfache runde Münze */
+    width: 120px; /* Münz-Größe | Zeile 37: perfekte Größe */
+    height: 120px; /* Runde Form | Zeile 38: gleiche Höhe */
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #b8860b 100%); /* Gold | Zeile 39: goldene Euro-Münze */
+    border-radius: 50%; /* Kreis | Zeile 40: perfekte runde Form */
+    border: 4px solid #b8860b; /* Rand | Zeile 41: dunkler Goldrand */
+    display: flex; /* Zentrieren | Zeile 42: Inhalt zentrieren */
+    align-items: center; /* Vertikal | Zeile 43: vertikal mittig */
+    justify-content: center; /* Horizontal | Zeile 44: horizontal mittig */
+    font-size: 4rem; /* Große Zahl | Zeile 45: große gut sichtbare Zahl */
+    font-weight: bold; /* Fett | Zeile 46: fette Schrift */
+    color: #8b4513; /* Braun | Zeile 47: dunkle Farbe */
+    margin: 40px auto; /* Zentriert | Zeile 48: in der Mitte */
+    cursor: pointer; /* Klickbar | Zeile 49: Mauszeiger ändert sich */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.3); /* Schatten | Zeile 50: 3D-Effekt */
+    transition: all 0.3s ease; /* Übergang | Zeile 51: sanfte Animationen */
 }
 
-.muenze-seite { /* Münz-Seiten | Zeile 46: Kopf und Zahl Seiten */
-    position: absolute; /* Absolute Pos | Zeile 47: exakte Positionierung */
-    width: 120px; /* Full Width | Zeile 48: volle Breite */
-    height: 120px; /* Full Height | Zeile 49: volle Höhe */
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 50%, #ffd700 100%); /* Gold Gradient | Zeile 50: Premium Gold */
-    border-radius: 50%; /* Perfect Circle | Zeile 51: perfekte Münzform */
-    display: flex; /* Flex Center | Zeile 52: zentrierte Inhalte */
-    align-items: center; /* Vertical Center | Zeile 53: vertikal zentriert */
-    justify-content: center; /* Horizontal Center | Zeile 54: horizontal zentriert */
-    font-size: 3rem; /* Large Icons | Zeile 55: große Symbole */
-    box-shadow: 0 10px 20px rgba(0,0,0,0.3), inset 0 1px 3px rgba(255,255,255,0.4); /* 3D Shadow | Zeile 56: 3D Schatten */
-    border: 3px solid #b8860b; /* Gold Border | Zeile 57: goldener Rand */
+/* Einfache Hover-Effekte | Zeile 54: funktioniert garantiert */
+.muenze-bereit:hover { /* Hover | Zeile 55: Maus drüber */
+    transform: scale(1.05); /* Größer | Zeile 56: leicht vergrößern */
+    filter: brightness(1.1); /* Heller | Zeile 57: etwas heller */
 }
 
-.kopf-seite { /* Kopf Design | Zeile 60: Vorderseite der Münze */
-    transform: rotateY(0deg); /* Front Face | Zeile 61: Vorderseite Position */
-    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 30%, #ffc107 100%); /* Royal Gold | Zeile 62: königliches Gold */
-    color: #8b4513; /* Brown Text | Zeile 63: edle braune Farbe */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.3); /* Text Shadow | Zeile 64: eleganter Textschatten */
-}
-
-.zahl-seite { /* Zahl Design | Zeile 67: Rückseite der Münze */
-    transform: rotateY(180deg); /* Back Face | Zeile 68: Rückseite Position */
-    background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 30%, #d3d3d3 100%); /* Silver Shine | Zeile 69: silberner Glanz */
-    color: #2c3e50; /* Dark Blue | Zeile 70: dunkles Blau */
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* Subtle Shadow | Zeile 71: subtiler Schatten */
-    border-color: #999999; /* Silver Border | Zeile 72: silberner Rand */
-}
-
-/* Premium Interaktionen | Zeile 75: elegante Benutzerinteraktionen */
-.muenze-bereit:hover { /* Hover Magic | Zeile 76: magische Hover-Effekte */
-    transform: scale(1.05) rotateY(15deg); /* Subtle Scale + Rotate | Zeile 77: sanfte Vergrößerung mit Drehung */
-    filter: brightness(1.1); /* Brightness Boost | Zeile 78: Helligkeitsschub */
-}
-
-.muenze-bereit:active { /* Click Feedback | Zeile 81: Klick-Rückmeldung */
-    transform: scale(0.95); /* Press Down | Zeile 82: Druckgefühl */
-    transition: transform 0.1s ease; /* Quick Response | Zeile 83: schnelle Reaktion */
+.muenze-bereit:active { /* Klick | Zeile 60: beim Klicken */
+    transform: scale(0.95); /* Kleiner | Zeile 61: gedrückt-Effekt */
 }
 
 /* Premium Steuerung | Zeile 130: elegante Bedienelemente */
@@ -110,35 +88,22 @@ h1 { /* Premium Titel | Zeile 13: elegante Überschrift */
     line-height: 1.6; /* Easy Reading | Zeile 153: angenehme Lesbarkeit */
 }
 
-/* Next Level Wurf-Animation | Zeile 98: Premium 3D Münzwurf */
-/* Verwendet von: muenz-animation.js werfeMuenze Zeile 33 | Zeile 99 */
-@keyframes muenz-wurf { /* Flüssige 3D Animation | Zeile 100: perfekte Münzwurf-Physik */
-    0% { /* Start Moment | Zeile 101: Abwurf-Position */
-        transform: translateY(0) rotateY(0deg) rotateX(0deg) scale(1);
-        filter: brightness(1);
+/* Einfache Wurf-Animation | Zeile 64: funktioniert immer */
+/* Verwendet von: muenz-animation.js Zeile 33 | Zeile 65 */
+@keyframes muenz-wurf { /* Münzwurf | Zeile 66: einfache Animation */
+    0% { /* Start | Zeile 67: Münze am Boden */
+        transform: translateY(0) rotateY(0deg);
     }
-    15% { /* Launch Phase | Zeile 105: Abschuss-Phase */
-        transform: translateY(-80px) rotateY(180deg) rotateX(90deg) scale(1.1);
-        filter: brightness(1.2);
+    25% { /* Hoch | Zeile 70: fliegt hoch */
+        transform: translateY(-150px) rotateY(450deg);
     }
-    35% { /* Peak Flight | Zeile 109: Höchster Flug */
-        transform: translateY(-250px) rotateY(900deg) rotateX(450deg) scale(1.2);
-        filter: brightness(1.3) drop-shadow(0 0 20px rgba(255,215,0,0.5));
+    50% { /* Höchster Punkt | Zeile 73: ganz oben */
+        transform: translateY(-200px) rotateY(900deg);
     }
-    55% { /* Descent Start | Zeile 113: Abstieg beginnt */
-        transform: translateY(-200px) rotateY(1800deg) rotateX(900deg) scale(1.1);
-        filter: brightness(1.2);
+    75% { /* Runter | Zeile 76: fällt runter */
+        transform: translateY(-50px) rotateY(1350deg);
     }
-    75% { /* First Bounce | Zeile 117: Erster Aufprall */
-        transform: translateY(-60px) rotateY(2700deg) rotateX(1350deg) scale(1.05);
-        filter: brightness(1.1);
-    }
-    90% { /* Second Bounce | Zeile 121: Zweiter Sprung */
-        transform: translateY(-20px) rotateY(3240deg) rotateX(1620deg) scale(1.02);
-        filter: brightness(1.05);
-    }
-    100% { /* Final Landing | Zeile 125: Finale Landung */
-        transform: translateY(0) rotateY(3600deg) rotateX(1800deg) scale(1);
-        filter: brightness(1);
+    100% { /* Landen | Zeile 79: landet */
+        transform: translateY(0) rotateY(1800deg);
     }
 }
