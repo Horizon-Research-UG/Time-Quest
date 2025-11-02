@@ -33,13 +33,14 @@ function startePhysik() {
         if (hoehe <= 0) {
             hoehe = 0;
             fallSpeed = 0;
+            muenze.style.transform = `translateY(0px)`;
             if (Math.random() < 0.02) {
                 muenze.textContent = Math.random() < 0.5 ? '👑' : '2';
             }
+        } else {
+            const rotation = hoehe * 3;
+            muenze.style.transform = `translateY(-${hoehe}px) rotateY(${rotation}deg)`;
         }
-        
-        const rotation = Date.now() / 10 % 360;
-        muenze.style.transform = `translateY(-${hoehe}px) rotateY(${rotation}deg)`;
         
         animationId = requestAnimationFrame(physikLoop);
     }
