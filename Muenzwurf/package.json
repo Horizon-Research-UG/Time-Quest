@@ -1,0 +1,22 @@
+{
+  "name": "muenzwurf-spiel",
+  "version": "1.0.0",
+  "description": "Interaktives Münzwurf-Spiel mit Animation und Zufallsgenerator",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "node src/main.js",
+    "dev": "node --watch src/main.js",
+    "build": "npm run prepare-pages",
+    "prepare-pages": "node config/build-config.js"
+  },
+  "keywords": ["gigapages", "modular", "web"],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

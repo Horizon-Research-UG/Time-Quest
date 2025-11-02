@@ -1,0 +1,10 @@
+# Gigapages Projekt - Build Konfiguration
+# Automatisiert die Vorbereitung aller Seiten
+# Verwendet von: package.json scripts (npm run build)
+# Verbunden mit: pages/* (alle Seitendateien)
+
+node_modules/
+*.log
+.env
+dist/
+build/

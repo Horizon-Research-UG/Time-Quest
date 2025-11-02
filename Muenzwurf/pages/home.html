@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!-- Münzwurf-Spiel Hauptseite -->
+<!-- Geladen von: src/page-loader.js -->
+<!-- Verbunden mit: assets/muenz-style.css (Zeile 9) -->
+
+<html lang="de">
+<head>
+    <meta charset="UTF-8"> <!-- Zeichensatz definieren -->
+    <link rel="stylesheet" href="/assets/muenz-style.css"> <!-- Münz-Stylesheet laden -->
+    <title>Münzwurf Spiel</title> <!-- Seitentitel setzen -->
+</head>
+<body>
+    <h1>Münzwurf Spiel</h1> <!-- Hauptüberschrift -->
+    
+    <!-- Spielbereich Container -->
+    <!-- Wird von: assets/muenz-animation.js manipuliert -->
+    <div id="spiel-container">
+        <!-- Münze Element -->
+        <!-- Verbunden mit: assets/muenz-animation.js (Zeile wird definiert) -->
+        <div id="muenze" class="muenze-bereit">💰</div>
+        
+        <!-- Steuerung -->
+        <!-- Verbunden mit: assets/muenz-steuerung.js -->
+        <div id="steuerung-panel">
+            <label>Dreh-Dauer:</label> <!-- Label für Slider -->
+            <input type="range" id="dreh-slider" min="1" max="10" value="5"> <!-- Drehzeit-Regler -->
+            <span id="dreh-wert">5</span> Sekunden <!-- Aktueller Wert -->
+        </div>
+    </div>
+    
+    <!-- JavaScript laden -->
+    <!-- Verbunden mit: assets/muenz-animation.js -->
+    <script src="/assets/muenz-animation.js"></script>
+    <!-- Verbunden mit: assets/muenz-steuerung.js -->  
+    <script src="/assets/muenz-steuerung.js"></script>
+</body>
+</html>
