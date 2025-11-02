@@ -1,0 +1,62 @@
+/* Münzwurf Stylesheet | Zeile 1 */
+/* Verwendet von: index.html Zeile 10 | Zeile 2 */  
+/* Alle Animationen und Styles | Zeile 3 */
+
+body { /* Body Styles | Zeile 5: Hauptcontainer */
+    font-family: Arial, sans-serif; /* Schriftart setzen */
+    margin: 0; /* Außenabstände entfernen */
+    padding: 20px; /* Innenabstand hinzufügen */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient-Hintergrund */
+    min-height: 100vh; /* Vollbildhöhe */
+}
+
+h1 {
+    color: white; /* Weiße Textfarbe für Überschrift */
+    text-align: center; /* Überschrift zentrieren */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Schatten für bessere Lesbarkeit */
+}
+
+#spiel-container {
+    max-width: 600px; /* Maximale Breite setzen */
+    margin: 0 auto; /* Container zentrieren */
+    background: rgba(255,255,255,0.9); /* Halbtransparenter weißer Hintergrund */
+    padding: 40px; /* Innenabstand hinzufügen */
+    border-radius: 20px; /* Stark abgerundete Ecken */
+    text-align: center; /* Inhalt zentrieren */
+}
+
+/* Münzen Styles | Zeile 27 */
+/* Verwendet von: index.html Zeile 15 #muenze | Zeile 28 */
+#muenze { /* Münze Element | Zeile 29: verbunden index.html Zeile 15 */
+    font-size: 80px; /* Größe | Zeile 30: große Darstellung */
+    cursor: pointer; /* Cursor | Zeile 31: klickbar anzeigen */
+    display: inline-block; /* Display | Zeile 32: für Transformationen */
+    transition: transform 0.2s ease; /* Übergang | Zeile 33: sanfte Hover-Effekte */
+    margin: 30px 0; /* Abstand | Zeile 34: oben/unten Platz */
+}
+
+/* Münze bereit zum Werfen */
+/* Verbunden mit: assets/muenz-animation.js (wird gesetzt/entfernt) */
+.muenze-bereit:hover {
+    transform: scale(1.1); /* Leichte Vergrößerung beim Hover */
+}
+
+/* Steuerungspanel Styles */
+/* Verwendet von: pages/home.html #steuerung-panel (Zeile 17) */
+#steuerung-panel {
+    margin-top: 30px; /* Abstand nach oben */
+    padding: 20px; /* Innenabstand */
+    background: rgba(0,0,0,0.1); /* Leicht dunkler Hintergrund */
+    border-radius: 10px; /* Abgerundete Ecken */
+}
+
+/* Münzwurf Animation */
+/* Verwendet von: assets/muenz-animation.js werfeMuenze() */
+@keyframes muenz-wurf {
+    0% { transform: translateY(0) rotateY(0deg); } /* Start-Position */
+    20% { transform: translateY(-200px) rotateY(720deg); } /* Hochfliegen mit Drehung */
+    50% { transform: translateY(-150px) rotateY(1800deg); } /* Höchster Punkt */
+    70% { transform: translateY(-50px) rotateY(2520deg); } /* Erster Sprung */
+    85% { transform: translateY(-20px) rotateY(2880deg); } /* Zweiter Sprung */
+    100% { transform: translateY(0) rotateY(3600deg); } /* Landen */
+}

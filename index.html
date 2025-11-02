@@ -1,19 +1,33 @@
 <!DOCTYPE html>
-<!-- Weiterleitung zu Muenzwurf Spiel | Zeile 1 -->
-<!-- GitHub Pages Root Redirect | Zeile 2: leitet zu Muenzwurf/index.html -->
-<!-- Verbunden mit: Muenzwurf/index.html Zeile 1 | Zeile 3 -->
+<!-- Münzwurf-Spiel DIREKT im Root | Zeile 1 -->
+<!-- GitHub Pages Hauptseite | Zeile 2: funktioniert garantiert -->
+<!-- Verbunden mit: muenz-style.css Zeile 10 | Zeile 3 -->
 <html lang="de">
 <head>
     <meta charset="UTF-8"> <!-- Zeichensatz | Zeile 6: Standard UTF-8 -->
-    <title>Münzwurf Spiel - Weiterleitung</title> <!-- Titel | Zeile 7: Seiten Titel -->
-    <meta http-equiv="refresh" content="0; url=Muenzwurf/"> <!-- Redirect | Zeile 8: automatische Weiterleitung -->
-    <script> <!-- JavaScript Backup | Zeile 9: falls Meta-Refresh nicht funktioniert -->
-        window.location.href = "Muenzwurf/"; // Weiterleitung | Zeile 10: JavaScript Redirect
-    </script> <!-- Ende JavaScript | Zeile 11: Script Ende -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive | Zeile 7: mobile optimiert -->
+    <title>Münzwurf Spiel 🪙</title> <!-- Titel | Zeile 8: Seiten Titel -->
+    <link rel="stylesheet" href="muenz-style.css"> <!-- CSS | Zeile 9: Stylesheet im Root -->
 </head>
 <body>
-    <h1>Weiterleitung zum Münzwurf Spiel...</h1> <!-- Info | Zeile 14: Benutzer Info -->
-    <p>Falls die automatische Weiterleitung nicht funktioniert:</p> <!-- Hilfe | Zeile 15: Fallback Info -->
-    <a href="Muenzwurf/">Klicken Sie hier für das Münzwurf Spiel</a> <!-- Link | Zeile 16: manueller Link zu Muenzwurf/ -->
+    <h1>Münzwurf Spiel 🪙</h1> <!-- Überschrift | Zeile 12: Haupttitel -->
+    
+    <div id="spiel-container"> <!-- Container | Zeile 14: Haupt-Spielbereich -->
+        <div id="muenze" class="muenze-bereit">💰</div> <!-- Münze | Zeile 15: klickbare Münze -->
+        
+        <div id="steuerung-panel"> <!-- Steuerung | Zeile 17: Kontrollelemente -->
+            <label>Dreh-Dauer:</label> <!-- Label | Zeile 18: Slider Beschriftung -->
+            <input type="range" id="dreh-slider" min="1" max="10" value="5"> <!-- Slider | Zeile 19: Drehzeit Regler -->
+            <span id="dreh-wert">5</span> Sekunden <!-- Wert | Zeile 20: aktuelle Zeit Anzeige -->
+        </div>
+        
+        <div id="anleitung"> <!-- Anleitung | Zeile 23: Hilfe für Benutzer -->
+            <p>🎯 Klicke auf die Münze zum Werfen!</p> <!-- Info1 | Zeile 24: Spielanleitung -->
+            <p>⏱️ Stelle die Drehzeit mit dem Regler ein</p> <!-- Info2 | Zeile 25: Slider Hilfe -->
+        </div>
+    </div>
+    
+    <script src="muenz-animation.js"></script> <!-- Animation | Zeile 29: Spiel-Logik laden -->
+    <script src="muenz-steuerung.js"></script> <!-- Steuerung | Zeile 30: Slider-Logik laden -->
 </body>
 </html>
