@@ -6,139 +6,151 @@
 // Globale Variablen | Zeile 6
 // Verbunden mit: muenz-steuerung.js Zeile 31 getDrehzeit | Zeile 7
 let muenze = null; // Münz-Element | Zeile 8: verbunden index.html Zeile 15
-let istAmWerfen = false; // Werf-Status | Zeile 9: verhindert Doppelklick  
+let istAmVolleyball = false; // Volleyball-Modus | Zeile 9: Münze am fallen/spielen
 let drehZeit = 5; // Standard Zeit | Zeile 10: von muenz-steuerung.js Zeile 31
 let aktuelleSeite = 'zahl'; // Start Seite | Zeile 11: beginnt mit Zahl (2)
-let istGehalten = false; // Halt-Status | Zeile 12: Münze wird gehalten
-let schwebHoehe = 0; // Schweb-Höhe | Zeile 13: aktuelle Höhe in Luft
-let fallTimer = null; // Fall-Timer | Zeile 14: Timer für automatisches Fallen
-let schwebeAnimation = null; // Schwebe-Animation | Zeile 15: Animation ID
+let muenzPosition = {x: 0, y: 0}; // Position | Zeile 12: aktuelle Münz-Position
+let muenzGeschwindigkeit = {x: 0, y: 0}; // Speed | Zeile 13: Geschwindigkeit
+let volleyballAnimation = null; // Volleyball Animation | Zeile 14: Animation ID
+let letzterKlick = 0; // Letzter Klick | Zeile 15: Zeit des letzten Klicks
 
 // Init Münz-Animation | Zeile 17
-// DOM Ready Callback | Zeile 18: von Zeile 95 aufgerufen
+// DOM Ready Callback | Zeile 18: von Zeile 120 aufgerufen
 // Verbunden mit: index.html Zeile 15 #muenze | Zeile 19
 function initMuenzAnimation() {
     muenze = document.getElementById('muenze'); // Element holen | Zeile 21: von index.html Zeile 15
-    muenze.addEventListener('mousedown', startHalten); // Maus runter | Zeile 22: zu Zeile 30 startHalten
-    muenze.addEventListener('mouseup', stopHalten); // Maus hoch | Zeile 23: zu Zeile 41 stopHalten
-    muenze.addEventListener('mouseleave', stopHalten); // Maus weg | Zeile 24: zu Zeile 41 stopHalten
-    muenze.addEventListener('click', mehrHoehe); // Extra Klick | Zeile 25: zu Zeile 49 mehrHoehe
-    setzeZufallsSeite(); // Random Start | Zeile 26: zufällige Startseite
+    muenze.addEventListener('click', volleyballKlick); // Volleyball Klick | Zeile 22: zu Zeile 30 volleyballKlick
+    setzeZufallsSeite(); // Random Start | Zeile 23: zufällige Startseite
 }
 
-// Zufällige Startseite | Zeile 29
-// Wird von initMuenzAnimation Zeile 26 aufgerufen | Zeile 30
+// Zufällige Startseite | Zeile 26
+// Wird von initMuenzAnimation Zeile 23 aufgerufen | Zeile 27
 function setzeZufallsSeite() {
-    const zufall = Math.random() < 0.5; // 50/50 | Zeile 32: zufällig true/false
-    aktuelleSeite = zufall ? 'kopf' : 'zahl'; // Seite | Zeile 33: kopf oder zahl
-    muenze.textContent = aktuelleSeite === 'kopf' ? '👑' : '2'; // Anzeigen | Zeile 34: Kopf=Krone, Zahl=2
+    const zufall = Math.random() < 0.5; // 50/50 | Zeile 29: zufällig true/false
+    aktuelleSeite = zufall ? 'kopf' : 'zahl'; // Seite | Zeile 30: kopf oder zahl
+    muenze.textContent = aktuelleSeite === 'kopf' ? '👑' : '2'; // Anzeigen | Zeile 31: Kopf=Krone, Zahl=2
 }
 
-// Halten starten | Zeile 37
-// Wird von mousedown Zeile 22 aufgerufen | Zeile 38
-function startHalten() {
-    if (istAmWerfen) return; // Schon am werfen | Zeile 40: verhindert Doppelstart
-    istGehalten = true; // Halten aktiviert | Zeile 41: setzt Zeile 12 Variable
-    istAmWerfen = true; // Wurf-Status | Zeile 42: setzt Zeile 9 Variable
-    schwebHoehe = 100; // Start-Höhe | Zeile 43: beginnt bei 100px Höhe
-    starteSchwebeAnimation(); // Schweben | Zeile 44: ruft Zeile 58 auf
-}
-
-// Halten stoppen | Zeile 47
-// Wird von mouseup/mouseleave Zeile 23/24 aufgerufen | Zeile 48
-function stopHalten() {
-    if (!istGehalten) return; // Nicht am halten | Zeile 50: prüft Zeile 12 Variable
-    istGehalten = false; // Halten beenden | Zeile 51: setzt Zeile 12 Variable
-    stoppeSchwebeAnimation(); // Schweben stopp | Zeile 52: ruft Zeile 70 auf
-    starteFallTimer(); // Fall-Timer | Zeile 53: ruft Zeile 74 auf
-}
-
-// Mehr Höhe bei Klick | Zeile 56
-// Wird von click Zeile 25 aufgerufen | Zeile 57
-function mehrHoehe() {
-    if (istGehalten && schwebHoehe < 300) { // Gehalten und nicht zu hoch | Zeile 59: prüft Zeile 12+13
-        schwebHoehe += 50; // Höher fliegen | Zeile 60: erhöht Zeile 13 Variable um 50px
-        resetFallTimer(); // Timer reset | Zeile 61: ruft Zeile 78 auf
+// Volleyball Klick | Zeile 34
+// Wird von click Zeile 22 aufgerufen | Zeile 35
+function volleyballKlick() {
+    if (!istAmVolleyball) { // Nicht am spielen | Zeile 37: erster Klick startet Spiel
+        startVolleyball(); // Volleyball starten | Zeile 38: ruft Zeile 43 auf
+    } else { // Schon am spielen | Zeile 39: Münze hochschlagen
+        schlagMuenzeHoch(); // Hochschlagen | Zeile 40: ruft Zeile 49 auf
     }
 }
 
-// Schwebe-Animation starten | Zeile 64
-// Wird von startHalten Zeile 44 aufgerufen | Zeile 65
-function starteSchwebeAnimation() {
-    function schweben() { // Schwebe-Loop | Zeile 67: endlose Schwebe-Schleife
-        if (istGehalten) { // Noch gehalten | Zeile 68: prüft Zeile 12 Variable
-            muenze.style.transform = `translateY(-${schwebHoehe}px) rotateY(${Date.now() / 10 % 360}deg)`; // Position | Zeile 69: setzt Position und Drehung
-            schwebeAnimation = requestAnimationFrame(schweben); // Weiter | Zeile 70: nächster Frame
+// Volleyball starten | Zeile 43
+// Wird von volleyballKlick Zeile 38 aufgerufen | Zeile 44
+function startVolleyball() {
+    istAmVolleyball = true; // Volleyball-Modus an | Zeile 46: setzt Zeile 9 Variable
+    muenzPosition = {x: 0, y: -100}; // Start-Position | Zeile 47: setzt Zeile 12 Variable (100px hoch)
+    muenzGeschwindigkeit = {x: 0, y: 0}; // Start-Speed | Zeile 48: setzt Zeile 13 Variable
+    letzterKlick = Date.now(); // Klick-Zeit | Zeile 49: setzt Zeile 15 Variable
+    starteVolleyballPhysik(); // Physik starten | Zeile 50: ruft Zeile 56 auf
+}
+
+// Münze hochschlagen | Zeile 53
+// Wird von volleyballKlick Zeile 40 aufgerufen | Zeile 54
+function schlagMuenzeHoch() {
+    muenzGeschwindigkeit.y = -15; // Nach oben | Zeile 56: negative Y = hoch (-15px pro Frame)
+    muenzGeschwindigkeit.x += (Math.random() - 0.5) * 8; // Seitlich | Zeile 57: zufällige X-Bewegung
+    letzterKlick = Date.now(); // Klick-Zeit | Zeile 58: setzt Zeile 15 Variable
+}
+
+// Volleyball-Physik starten | Zeile 61
+// Wird von startVolleyball Zeile 50 aufgerufen | Zeile 62
+function starteVolleyballPhysik() {
+    function physikLoop() { // Physik-Loop | Zeile 64: endlose Physik-Schleife
+        if (istAmVolleyball) { // Noch am spielen | Zeile 65: prüft Zeile 9 Variable
+            // Schwerkraft anwenden | Zeile 66: Münze fällt nach unten
+            muenzGeschwindigkeit.y += 0.8; // Gravity | Zeile 67: +0.8px pro Frame nach unten
+            
+            // Position aktualisieren | Zeile 69: neue Position berechnen
+            muenzPosition.x += muenzGeschwindigkeit.x; // X bewegen | Zeile 70: horizontale Bewegung
+            muenzPosition.y += muenzGeschwindigkeit.y; // Y bewegen | Zeile 71: vertikale Bewegung
+            
+            // Luftwiderstand | Zeile 73: Geschwindigkeit reduzieren
+            muenzGeschwindigkeit.x *= 0.98; // X-Bremse | Zeile 74: 2% Verlust pro Frame
+            
+            // Seitliche Grenzen | Zeile 76: nicht zu weit seitlich
+            if (Math.abs(muenzPosition.x) > 200) { // Zu weit | Zeile 77: mehr als 200px seitlich
+                muenzGeschwindigkeit.x *= -0.8; // Abprall | Zeile 78: Richtung umkehren + Verlust
+            }
+            
+            // Münze zu lange nicht geklickt | Zeile 81: Game Over Check
+            if (Date.now() - letzterKlick > getDrehzeit() * 1000) { // Zu lange | Zeile 82: länger als Drehzeit
+                beendeVolleyball(); // Spiel Ende | Zeile 83: ruft Zeile 91 auf
+                return; // Stop | Zeile 84: Loop beenden
+            }
+            
+            // Münze zu tief gefallen | Zeile 87: am Boden
+            if (muenzPosition.y > 100) { // Zu tief | Zeile 88: mehr als 100px unten
+                beendeVolleyball(); // Spiel Ende | Zeile 89: ruft Zeile 91 auf
+                return; // Stop | Zeile 90: Loop beenden
+            }
+            
+            // Position setzen | Zeile 93: Münze visuell bewegen
+            muenze.style.transform = `translate(${muenzPosition.x}px, ${muenzPosition.y}px) rotateY(${Date.now() / 10 % 360}deg)`; // Move | Zeile 94: Position + Drehung
+            
+            volleyballAnimation = requestAnimationFrame(physikLoop); // Weiter | Zeile 96: nächster Frame
         }
     }
-    schweben(); // Start | Zeile 72: beginnt Schwebe-Loop
+    physikLoop(); // Start | Zeile 98: beginnt Physik-Loop
 }
 
-// Schwebe-Animation stoppen | Zeile 75
-// Wird von stopHalten Zeile 52 aufgerufen | Zeile 76
-function stoppeSchwebeAnimation() {
-    if (schwebeAnimation) { // Animation läuft | Zeile 78: prüft Zeile 15 Variable
-        cancelAnimationFrame(schwebeAnimation); // Stoppen | Zeile 79: stoppt Animation
-        schwebeAnimation = null; // Reset | Zeile 80: setzt Zeile 15 Variable zurück
+// Volleyball beenden | Zeile 101
+// Wird von starteVolleyballPhysik Zeile 83/89 aufgerufen | Zeile 102
+function beendeVolleyball() {
+    istAmVolleyball = false; // Volleyball aus | Zeile 104: setzt Zeile 9 Variable
+    if (volleyballAnimation) { // Animation läuft | Zeile 105: prüft Zeile 14 Variable
+        cancelAnimationFrame(volleyballAnimation); // Stoppen | Zeile 106: stoppt Animation
+        volleyballAnimation = null; // Reset | Zeile 107: setzt Zeile 14 Variable zurück
     }
+    starteFinalenWurf(); // Finaler Wurf | Zeile 109: ruft Zeile 112 auf
 }
 
-// Fall-Timer starten | Zeile 83
-// Wird von stopHalten Zeile 53 aufgerufen | Zeile 84
-function starteFallTimer() {
-    const warteZeit = getDrehzeit() * 1000; // Warte-Zeit | Zeile 86: von muenz-steuerung.js Zeile 31 in Millisekunden
-    fallTimer = setTimeout(() => starteFall(), warteZeit); // Timer setzen | Zeile 87: ruft Zeile 91 nach Wartezeit auf
+// Finaler Wurf | Zeile 112
+// Wird von beendeVolleyball Zeile 109 aufgerufen | Zeile 113
+function starteFinalenWurf() {
+    const aktuelleZeit = getDrehzeit(); // Zeit holen | Zeile 115: von muenz-steuerung.js Zeile 31
+    muenze.style.animation = `muenz-wurf ${aktuelleZeit}s ease-out`; // Wurf-Animation | Zeile 116: zu muenz-style.css Zeile 66
+    setTimeout(() => berechneErgebnis(), aktuelleZeit * 1000); // Ergebnis | Zeile 117: ruft Zeile 120 nach Wurf auf
 }
 
-// Fall-Timer zurücksetzen | Zeile 90
-// Wird von mehrHoehe Zeile 61 aufgerufen | Zeile 91
-function resetFallTimer() {
-    if (fallTimer) { // Timer läuft | Zeile 93: prüft Zeile 14 Variable
-        clearTimeout(fallTimer); // Timer löschen | Zeile 94: löscht alten Timer
-        starteFallTimer(); // Neu starten | Zeile 95: ruft Zeile 83 auf
-    }
-}
-
-// Fall starten | Zeile 99
-// Wird von starteFallTimer Zeile 87 aufgerufen | Zeile 100
-function starteFall() {
-    const aktuelleZeit = getDrehzeit(); // Zeit holen | Zeile 102: von muenz-steuerung.js Zeile 31
-    muenze.style.animation = `muenz-wurf ${aktuelleZeit}s ease-out`; // Fall-Animation | Zeile 103: zu muenz-style.css Zeile 66
-    setTimeout(() => berechneErgebnis(), aktuelleZeit * 1000); // Ergebnis | Zeile 104: ruft Zeile 107 nach Fall auf
-}
-
-// Ergebnis berechnen | Zeile 107
-// Von starteFall Zeile 104 aufgerufen | Zeile 108  
-// Verbunden mit: zeigeErgebnis Zeile 113 | Zeile 109
+// Ergebnis berechnen | Zeile 120
+// Von starteFinalenWurf Zeile 117 aufgerufen | Zeile 121  
+// Verbunden mit: zeigeErgebnis Zeile 126 | Zeile 122
 function berechneErgebnis() {
-    const zufallsZahl = Math.random(); // Zufall 0-1 | Zeile 111: Math.random 50/50
-    const ergebnis = zufallsZahl < 0.5 ? 'kopf' : 'zahl'; // Wahl | Zeile 112: kopf oder zahl
-    zeigeErgebnis(ergebnis); // Zeigen | Zeile 113: ruft Zeile 116 auf
+    const zufallsZahl = Math.random(); // Zufall 0-1 | Zeile 124: Math.random 50/50
+    const ergebnis = zufallsZahl < 0.5 ? 'kopf' : 'zahl'; // Wahl | Zeile 125: kopf oder zahl
+    zeigeErgebnis(ergebnis); // Zeigen | Zeile 126: ruft Zeile 129 auf
 }
 
-// Ergebnis anzeigen | Zeile 116
-// Von berechneErgebnis Zeile 113 aufgerufen | Zeile 117
-// Verbunden mit: resetMuenze Zeile 122 | Zeile 118  
+// Ergebnis anzeigen | Zeile 129
+// Von berechneErgebnis Zeile 126 aufgerufen | Zeile 130
+// Verbunden mit: resetMuenze Zeile 135 | Zeile 131  
 function zeigeErgebnis(ergebnis) {
-    aktuelleSeite = ergebnis; // Seite setzen | Zeile 120: neue aktuelle Seite
-    muenze.textContent = ergebnis === 'kopf' ? '👑' : '2'; // Symbol | Zeile 121: Krone oder 2
-    setTimeout(() => resetMuenze(), 2000); // Reset | Zeile 122: nach 2 Sekunden zurücksetzen
+    aktuelleSeite = ergebnis; // Seite setzen | Zeile 133: neue aktuelle Seite
+    muenze.textContent = ergebnis === 'kopf' ? '👑' : '2'; // Symbol | Zeile 134: Krone oder 2
+    setTimeout(() => resetMuenze(), 2000); // Reset | Zeile 135: nach 2 Sekunden zurücksetzen
 }
 
-// Münze zurücksetzen | Zeile 125
-// Von zeigeErgebnis Zeile 122 aufgerufen | Zeile 126
+// Münze zurücksetzen | Zeile 138
+// Von zeigeErgebnis Zeile 135 aufgerufen | Zeile 139
 function resetMuenze() {
-    muenze.style.animation = ''; // Animation weg | Zeile 128: entfernt Animation
-    muenze.style.transform = ''; // Position reset | Zeile 129: zurück zu Startposition
-    istAmWerfen = false; // Status frei | Zeile 130: setzt Zeile 9 Variable zurück
-    istGehalten = false; // Halt-Status reset | Zeile 131: setzt Zeile 12 Variable zurück
-    schwebHoehe = 0; // Höhe reset | Zeile 132: setzt Zeile 13 Variable zurück
-    if (fallTimer) { // Timer läuft noch | Zeile 133: prüft Zeile 14 Variable
-        clearTimeout(fallTimer); // Timer löschen | Zeile 134: löscht Timer
-        fallTimer = null; // Timer reset | Zeile 135: setzt Zeile 14 Variable zurück
+    muenze.style.animation = ''; // Animation weg | Zeile 141: entfernt Animation
+    muenze.style.transform = ''; // Position reset | Zeile 142: zurück zu Startposition
+    istAmVolleyball = false; // Volleyball aus | Zeile 143: setzt Zeile 9 Variable zurück
+    muenzPosition = {x: 0, y: 0}; // Position reset | Zeile 144: setzt Zeile 12 Variable zurück
+    muenzGeschwindigkeit = {x: 0, y: 0}; // Speed reset | Zeile 145: setzt Zeile 13 Variable zurück
+    if (volleyballAnimation) { // Animation läuft | Zeile 146: prüft Zeile 14 Variable
+        cancelAnimationFrame(volleyballAnimation); // Animation stopp | Zeile 147: stoppt Animation
+        volleyballAnimation = null; // Reset | Zeile 148: setzt Zeile 14 Variable zurück
     }
 }
 
-// DOM Ready Event | Zeile 139
-// Startet bei Seitenload | Zeile 140: browser DOMContentLoaded  
-document.addEventListener('DOMContentLoaded', initMuenzAnimation); // Init | Zeile 141: ruft Zeile 17 auf
+// DOM Ready Event | Zeile 151
+// Startet bei Seitenload | Zeile 152: browser DOMContentLoaded  
+document.addEventListener('DOMContentLoaded', initMuenzAnimation); // Init | Zeile 153: ruft Zeile 17 auf
