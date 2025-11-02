@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     zeitAnzeige = document.getElementById('zeit-anzeige'); // Anzeige holen | Zeile 18
     
     // Zustand 1: Startposition | Zeile 20
-    setzeZustand1(); // Münze liegt da | Zeile 21
+    ersterStart(); // Münze mit zufälliger Seite | Zeile 21
     
     // Events | Zeile 23
     muenze.addEventListener('click', klickAufMuenze); // Klick-Handler | Zeile 24
@@ -33,9 +33,15 @@ function updateZeitAnzeige() {
 // Zustand 1: Münze liegt da | Zeile 33
 function setzeZustand1() {
     zustand = 1; // Status setzen | Zeile 35
-    muenze.textContent = Math.random() < 0.5 ? '👑' : '2'; // Zufällige Seite | Zeile 36
+    // Münze behält aktuelles Symbol | Zeile 36
     muenze.style.transform = ''; // Keine Transformation | Zeile 37
     muenze.style.animation = ''; // Keine Animation | Zeile 38
+}
+
+// Erstes Mal starten | Zeile 41
+function ersterStart() {
+    muenze.textContent = Math.random() < 0.5 ? '👑' : '2'; // Zufällige Startseite | Zeile 43
+    setzeZustand1(); // Dann zu Zustand 1 | Zeile 44
 }
 
 // Klick auf Münze | Zeile 41
@@ -71,14 +77,16 @@ function setzeZustand4(halbeDauer) {
     setTimeout(setzeZustand5, halbeDauer * 1000); // Nach Runterflug zu Zustand 5 | Zeile 71
 }
 
-// Zustand 5: Ergebnis anzeigen | Zeile 74
+// Zustand 5: Ergebnis anzeigen | Zeile 80
 function setzeZustand5() {
-    zustand = 5; // Status setzen | Zeile 76
+    zustand = 5; // Status setzen | Zeile 82
     
-    // Zufälliges Ergebnis | Zeile 78
-    muenze.textContent = Math.random() < 0.5 ? '👑' : '2'; // Neues Ergebnis | Zeile 79
-    muenze.style.animation = ''; // Animation stoppen | Zeile 80
+    // Echtes zufälliges Ergebnis | Zeile 84
+    const zufallsZahl = Math.random(); // Neue Zufallszahl | Zeile 85
+    const ergebnis = zufallsZahl < 0.5 ? '👑' : '2'; // 50/50 Chance | Zeile 86
+    muenze.textContent = ergebnis; // Ergebnis setzen | Zeile 87
+    muenze.style.animation = ''; // Animation stoppen | Zeile 88
     
-    // Nach 2 Sekunden zurück zu Zustand 1 | Zeile 82
-    setTimeout(setzeZustand1, 2000); // Zurück zur Startposition | Zeile 83
+    // Nach 2 Sekunden zurück zu Zustand 1 | Zeile 90
+    setTimeout(setzeZustand1, 2000); // Zurück zur Startposition | Zeile 91
 }
