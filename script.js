@@ -1,48 +1,33 @@
 let muenze = null;
-let hoehe = 0;
-let fallSpeed = 0;
-let animationId = null;
-let istAmFallen = true;
+let zeitSlider = null;
+let zeitAnzeige = null;
+let istAmWerfen = false;
 
 document.addEventListener('DOMContentLoaded', function() {
     muenze = document.getElementById('muenze');
+    zeitSlider = document.getElementById('drehzeit');
+    zeitAnzeige = document.getElementById('zeit-anzeige');
+    
     muenze.textContent = Math.random() < 0.5 ? '👑' : '2';
     
-    muenze.addEventListener('click', schubsHoch);
+    muenze.addEventListener('click', werfeMuenze);
     
-    startePhysik();
+    zeitSlider.addEventListener('input', function() {
+        zeitAnzeige.textContent = zeitSlider.value;
+    });
 });
 
-function schubsHoch() {
-    hoehe += 50;
-    fallSpeed = 0;
-    istAmFallen = false;
+function werfeMuenze() {
+    if (istAmWerfen) return;
     
-    setTimeout(() => {
-        istAmFallen = true;
-    }, 200);
-}
-
-function startePhysik() {
-    function physikLoop() {
-        if (istAmFallen) {
-            fallSpeed += 1.5;
-            hoehe -= fallSpeed;
-        }
-        
-        if (hoehe <= 0) {
-            hoehe = 0;
-            fallSpeed = 0;
-            muenze.style.transform = `translateY(0px)`;
-            if (Math.random() < 0.02) {
-                muenze.textContent = Math.random() < 0.5 ? '👑' : '2';
-            }
-        } else {
-            const rotation = hoehe * 3;
-            muenze.style.transform = `translateY(-${hoehe}px) rotateY(${rotation}deg)`;
-        }
-        
-        animationId = requestAnimationFrame(physikLoop);
-    }
-    physikLoop();
+    istAmWerfen = true;
+    const dauer = parseFloat(zeitSlider.value);
+    
+    muenze.style.animation = `wurf ${dauer}s ease-in-out`;
+    
+    setTimeout(function() {
+        muenze.textContent = Math.random() < 0.5 ? '👑' : '2';
+        muenze.style.animation = '';
+        istAmWerfen = false;
+    }, dauer * 1000);
 }
