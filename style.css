@@ -55,11 +55,19 @@ body {
     outline: none;
 }
 
-@keyframes wurf {
+/* Zustand 3: Hochflug */
+@keyframes hochflug {
     0% {
         transform: translateY(0) rotateY(0deg);
     }
-    50% {
+    100% {
+        transform: translateY(-150px) rotateY(1800deg);
+    }
+}
+
+/* Zustand 4: Runterflug */
+@keyframes runterflug {
+    0% {
         transform: translateY(-150px) rotateY(1800deg);
     }
     100% {
