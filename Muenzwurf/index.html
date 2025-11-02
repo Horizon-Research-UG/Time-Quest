@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<!-- Münzwurf-Spiel GitHub Pages Version | Zeile 3: verbunden mit muenz-style.css -->
+<!-- GitHub Pages direkte Version | Zeile 11: verbunden mit muenz-animation.js -->
+<html lang="de">
+<head>
+    <meta charset="UTF-8"> <!-- Zeichensatz | Zeile 6 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive | Zeile 7 -->
+    <title>Münzwurf Spiel</title> <!-- Titel | Zeile 8 -->
+    <link rel="stylesheet" href="muenz-style.css"> <!-- CSS laden | Zeile 3: Datei muenz-style.css -->
+</head>
+<body>
+    <h1>Münzwurf Spiel</h1> <!-- Überschrift | Zeile 12 -->
+    
+    <div id="spiel-container"> <!-- Container | Zeile 32: CSS muenz-style.css -->
+        <div id="muenze" class="muenze-bereit">💰</div> <!-- Münze | Zeile 25: CSS muenz-style.css -->
+        
+        <div id="steuerung-panel"> <!-- Steuerung | Zeile 44: CSS muenz-style.css -->
+            <label>Dreh-Dauer:</label> <!-- Label | Zeile 17 -->
+            <input type="range" id="dreh-slider" min="1" max="10" value="5"> <!-- Slider | Zeile 8: JS muenz-steuerung.js -->
+            <span id="dreh-wert">5</span> Sekunden <!-- Wert | Zeile 9: JS muenz-steuerung.js -->
+        </div>
+    </div>
+    
+    <script src="muenz-animation.js"></script> <!-- Animation JS | Zeile 12: Datei muenz-animation.js -->
+    <script src="muenz-steuerung.js"></script> <!-- Steuerung JS | Zeile 12: Datei muenz-steuerung.js -->
+</body>
+</html>

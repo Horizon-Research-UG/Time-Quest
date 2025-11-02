@@ -1,8 +1,8 @@
-/* Münzwurf-Spiel Stylesheet */
-/* Verwendet von: pages/home.html (Zeile 9) */  
-/* Definiert alle Münz-Animationen und Styles */
+/* Münzwurf Stylesheet | Zeile 1 */
+/* Verwendet von: index.html Zeile 10 | Zeile 2 */  
+/* Alle Animationen und Styles | Zeile 3 */
 
-body {
+body { /* Body Styles | Zeile 5: Hauptcontainer */
     font-family: Arial, sans-serif; /* Schriftart setzen */
     margin: 0; /* Außenabstände entfernen */
     padding: 20px; /* Innenabstand hinzufügen */
@@ -25,14 +25,14 @@ h1 {
     text-align: center; /* Inhalt zentrieren */
 }
 
-/* Münzen-Styles */
-/* Verwendet von: pages/home.html #muenze (Zeile 14) */
-#muenze {
-    font-size: 80px; /* Große Münz-Darstellung */
-    cursor: pointer; /* Zeiger-Cursor für Klickbarkeit */
-    display: inline-block; /* Inline-Block für Transformationen */
-    transition: transform 0.2s ease; /* Sanfte Übergänge */
-    margin: 30px 0; /* Abstand oben und unten */
+/* Münzen Styles | Zeile 27 */
+/* Verwendet von: index.html Zeile 15 #muenze | Zeile 28 */
+#muenze { /* Münze Element | Zeile 29: verbunden index.html Zeile 15 */
+    font-size: 80px; /* Größe | Zeile 30: große Darstellung */
+    cursor: pointer; /* Cursor | Zeile 31: klickbar anzeigen */
+    display: inline-block; /* Display | Zeile 32: für Transformationen */
+    transition: transform 0.2s ease; /* Übergang | Zeile 33: sanfte Hover-Effekte */
+    margin: 30px 0; /* Abstand | Zeile 34: oben/unten Platz */
 }
 
 /* Münze bereit zum Werfen */

@@ -1,37 +1,37 @@
-// Münzwurf Steuerung
-// Verwaltet den Drehzeit-Regler und Einstellungen
-// Verwendet von: pages/home.html (Zeile 26)
-// Verbunden mit: muenz-animation.js getDrehzeit() (diese Datei)
+// Münzwurf Steuerung | Zeile 1
+// Drehzeit-Regler verwalten | Zeile 2
+// Verwendet von: index.html Zeile 23 | Zeile 3
+// Verbunden mit: muenz-animation.js Zeile 32 getDrehzeit | Zeile 4
 
-// Globale Steuerungsvariablen
-// Verbunden mit: pages/home.html #dreh-slider (Zeile 19)
-let drehSlider = null; // Slider-Element Referenz
-let wertAnzeige = null; // Wert-Anzeige Referenz
+// Globale Variablen | Zeile 6  
+// Verbunden mit: index.html Zeile 18 #dreh-slider | Zeile 7
+let drehSlider = null; // Slider Element | Zeile 8: von index.html Zeile 18
+let wertAnzeige = null; // Wert Anzeige | Zeile 9: von index.html Zeile 19
 
-// Initialisiert die Steuerungselemente
-// Wird bei DOM-Ready aufgerufen
-// Verbunden mit: pages/home.html #dreh-slider und #dreh-wert
+// Init Steuerung | Zeile 11
+// DOM Ready Callback | Zeile 12: von Zeile 29 aufgerufen  
+// Verbunden mit: index.html Zeile 18+19 Slider+Wert | Zeile 13
 function initSteuerung() {
-    drehSlider = document.getElementById('dreh-slider'); // Slider holen
-    wertAnzeige = document.getElementById('dreh-wert'); // Wert-Anzeige holen
-    drehSlider.addEventListener('input', updateDrehzeit); // Input-Event hinzufügen
+    drehSlider = document.getElementById('dreh-slider'); // Slider | Zeile 15: von index.html Zeile 18
+    wertAnzeige = document.getElementById('dreh-wert'); // Anzeige | Zeile 16: von index.html Zeile 19
+    drehSlider.addEventListener('input', updateDrehzeit); // Event | Zeile 17: zu Zeile 20 updateDrehzeit
 }
 
-// Aktualisiert die Drehzeit basierend auf Slider-Wert
-// Wird von Slider input-Event aufgerufen
-// Verbunden mit: pages/home.html #dreh-wert (Zeile 20)
+// Drehzeit Update | Zeile 20
+// Slider Input Handler | Zeile 21: von Zeile 17 addEventListener
+// Verbunden mit: index.html Zeile 19 Textinhalt | Zeile 22
 function updateDrehzeit() {
-    const neueZeit = drehSlider.value; // Slider-Wert holen
-    drehZeit = parseFloat(neueZeit); // Als Zahl speichern
-    wertAnzeige.textContent = neueZeit; // Anzeige aktualisieren
+    const neueZeit = drehSlider.value; // Wert holen | Zeile 24: von Zeile 8 Slider
+    drehZeit = parseFloat(neueZeit); // Speichern | Zeile 25: in globale Variable  
+    wertAnzeige.textContent = neueZeit; // Anzeigen | Zeile 26: ändert index.html Zeile 19
 }
 
-// Gibt die aktuelle Drehzeit zurück
-// Wird von muenz-animation.js werfeMuenze() verwendet
+// Drehzeit zurückgeben | Zeile 28
+// Von muenz-animation.js Zeile 32 verwendet | Zeile 29
 function getDrehzeit() {
-    return drehZeit; // Aktuelle Drehzeit zurückgeben
+    return drehZeit; // Zeit | Zeile 31: gibt Variable von Zeile 25 zurück
 }
 
-// DOM-Ready Event für Steuerung
-// Startet Steuerung wenn Seite geladen ist
-document.addEventListener('DOMContentLoaded', initSteuerung);
+// DOM Ready Event | Zeile 33  
+// Startet bei Seitenload | Zeile 34: browser DOMContentLoaded
+document.addEventListener('DOMContentLoaded', initSteuerung); // Init | Zeile 35: ruft Zeile 11 auf

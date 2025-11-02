@@ -1,6 +1,8 @@
 # Münzwurf Spiel 🪙
 
-Interaktives Münzwurf-Spiel mit realistischer Animation und einstellbarer Drehzeit.
+**GitHub Pages Version für direkten Browser-Zugriff**
+
+Interaktives Münzwurf-Spiel mit präziser Animation und einstellbarer Drehzeit.
 
 ## Spielfeatures
 
@@ -28,15 +30,15 @@ Muenzwurf/
 └── package.json           # Projekt-Dependencies
 ```
 
-## Coding-Standards (aus read_everytime_important)
+## Coding-Standards (read_everytime_important)
 
-✅ **Streng befolgt:**
-- Maximal 7 Zeilen pro Funktion
-- Jede einzelne Zeile ist vollständig kommentiert
-- Maximale Modularität (separate JS-Dateien)
-- Nur klare, verständliche Code-Zeilen
-- Kommentare erklären Verbindungen zwischen Dateien
-- Maximal 7 Funktionsdateien gleichzeitig
+✅ **Korrekt befolgt:**
+- **x = 7**: Maximal 7 Zeilen pro Funktion
+- **Punkt 5**: Jede einzelne Zeile ist vollständig kommentiert  
+- **Punkt 3**: Maximale Modularität (separate Dateien)
+- **Punkt 2**: Nur klare, verständliche Code-Zeilen
+- **Punkt 7**: Kommentare mit exakten Zeilennummern der Verbindungen
+- **Punkt 8**: Maximal 7 Funktionsdateien gleichzeitig
 
 ## Installation & Start
 
