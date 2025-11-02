@@ -1,34 +1,21 @@
 <!DOCTYPE html>
-<!-- Münzwurf-Spiel DIREKT im Root | Zeile 1 -->
-<!-- GitHub Pages Hauptseite | Zeile 2: funktioniert garantiert -->
-<!-- Verbunden mit: muenz-style.css Zeile 10 | Zeile 3 -->
 <html lang="de">
 <head>
-    <meta charset="UTF-8"> <!-- Zeichensatz | Zeile 6: Standard UTF-8 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Responsive | Zeile 7: mobile optimiert -->
-    <title>Münzwurf Spiel 🪙</title> <!-- Titel | Zeile 8: Seiten Titel -->
-    <link rel="stylesheet" href="muenz-style.css"> <!-- CSS | Zeile 9: Stylesheet im Root -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Münzwurf - Neu</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Münzwurf Spiel 🪙</h1> <!-- Überschrift | Zeile 12: Haupttitel -->
-    
-    <div id="spiel-container"> <!-- Container | Zeile 14: Haupt-Spielbereich -->
-        <div id="muenze" class="muenze-bereit">2</div> <!-- Münze | Zeile 15: einfache klickbare Münze -->
+    <div class="container">
+        <div id="muenze" class="muenze">2</div>
         
-        <div id="steuerung-panel"> <!-- Steuerung | Zeile 17: Kontrollelemente -->
-            <label>Dreh-Dauer:</label> <!-- Label | Zeile 18: Slider Beschriftung -->
-            <input type="range" id="dreh-slider" min="1" max="10" value="5"> <!-- Slider | Zeile 19: Drehzeit Regler -->
-            <span id="dreh-wert">5</span> Sekunden <!-- Wert | Zeile 20: aktuelle Zeit Anzeige -->
-        </div>
-        
-        <div id="anleitung"> <!-- Anleitung | Zeile 23: Hilfe für Benutzer -->
-            <p>� Klicke die Münze immer wieder hoch (wie Volleyball)!</p> <!-- Info1 | Zeile 24: Volleyball-Anleitung -->
-            <p>⚡ Jeder Klick schlägt die Münze nach oben!</p> <!-- Info2 | Zeile 25: Klick-Mechanik -->
-            <p>⏱️ Aufhören zu klicken = Münze fällt nach Timer-Zeit</p> <!-- Info3 | Zeile 26: Timer-Info -->
+        <div class="regler">
+            <label for="drehzeit">Drehdauer: <span id="zeit-anzeige">3</span> Sekunden</label>
+            <input type="range" id="drehzeit" min="1" max="10" value="3" step="0.5">
         </div>
     </div>
     
-    <script src="muenz-animation.js"></script> <!-- Animation | Zeile 29: Spiel-Logik laden -->
-    <script src="muenz-steuerung.js"></script> <!-- Steuerung | Zeile 30: Slider-Logik laden -->
+    <script src="script.js"></script>
 </body>
 </html>
